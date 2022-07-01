@@ -54,14 +54,9 @@ class SeasonImporter
     #[ArrayShape(['date' => "int", 'seasonName' => "string", 'fact' => "string|null"])]
     public function getSeason(): array
     {
-
         $currentWeek = (int) date('W');
-
         $seasonName = $this->getCurrentSeason($currentWeek);
-
         $fact = $this->getCatFact();
-
-
 
         return [
             'date' => $currentWeek,

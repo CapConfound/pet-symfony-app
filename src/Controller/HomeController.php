@@ -2,34 +2,31 @@
 
 namespace App\Controller;
 
-use App\Helper\NumToSeason;
+use App\Service\SeasonImporter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class HomeController extends AbstractController
 {
 
     public function __construct(
-        private NumToSeason $numToSeason,
-        private HttpClientInterface $httpClient,
+        private SeasonImporter $seasonImporter
     )
     {
     }
 
-    /**
-     * @Route("/home", name="home")
-     */
+    private function saveCar(): void
+    {
+
+    }
+
+    #[Route('/home', name: 'home')]
     public function index()
     {
 
+        $season = $this->seasonImporter->getSeason();
 
-        return $this->render('/base.html.twig', [
-            'date' => $currentWeek,
-            'seasonName' => $this->numToSeason->getLabels()[$res],
-            'fact' => $fact
-        ]);
+        return $this->render('/base.html.twig', $season);
     }
 
 }
